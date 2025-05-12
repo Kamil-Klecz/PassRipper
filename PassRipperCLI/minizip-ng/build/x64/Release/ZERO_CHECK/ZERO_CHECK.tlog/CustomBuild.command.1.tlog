@@ -1,0 +1,10 @@
+^C:\USERS\KAMIL\DESKTOP\PRCLI\PASSRIPPERCLI\MINIZIP-NG\BUILD\CMAKEFILES\0C6567A7E1A9875E676266E649E47766\GENERATE.STAMP.RULE
+setlocal
+"E:\Other Programs\Cmake\bin\cmake.exe" -SC:/Users/Kamil/Desktop/PRCLI/PassRipperCLI/minizip-ng -BC:/Users/Kamil/Desktop/PRCLI/PassRipperCLI/minizip-ng/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Kamil/Desktop/PRCLI/PassRipperCLI/minizip-ng/build/minizip-ng.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

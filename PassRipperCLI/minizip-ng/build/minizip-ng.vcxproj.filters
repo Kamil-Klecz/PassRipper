@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_crypt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_os.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm_buf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm_mem.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm_split.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_zip.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_zip_rw.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm_zlib.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_os_win32.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm_os_win32.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_crypt_winvista.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_crypt_winxp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm_pkcrypt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm_wzaes.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_os.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_crypt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm_buf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm_mem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm_split.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm_os.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_zip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_zip_rw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm_zlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm_pkcrypt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\mz_strm_wzaes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{8789FD9A-2E29-3F14-AAF4-BC199AA5C17D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{48CF522B-07FF-34AA-ADC4-D5A6A1C97361}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

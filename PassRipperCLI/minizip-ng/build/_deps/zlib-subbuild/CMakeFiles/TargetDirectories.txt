@@ -1,0 +1,3 @@
+C:/Users/Kamil/Desktop/PRCLI/PassRipperCLI/minizip-ng/build/_deps/zlib-subbuild/CMakeFiles/zlib-populate.dir
+C:/Users/Kamil/Desktop/PRCLI/PassRipperCLI/minizip-ng/build/_deps/zlib-subbuild/CMakeFiles/ALL_BUILD.dir
+C:/Users/Kamil/Desktop/PRCLI/PassRipperCLI/minizip-ng/build/_deps/zlib-subbuild/CMakeFiles/ZERO_CHECK.dir

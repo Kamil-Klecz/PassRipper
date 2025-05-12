@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ResolveNugetPackages>false</ResolveNugetPackages>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4313BDA8-3680-39EB-82C5-A5A7FE50E673}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\build\_deps\zlib-subbuild\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Kamil/Desktop/PRCLI/PassRipperCLI/minizip-ng/build/_deps/zlib-subbuild/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"E:\Other Programs\Cmake\bin\cmake.exe" -SC:/Users/Kamil/Desktop/PRCLI/PassRipperCLI/minizip-ng/build/_deps/zlib-subbuild -BC:/Users/Kamil/Desktop/PRCLI/PassRipperCLI/minizip-ng/build/_deps/zlib-subbuild --check-stamp-file C:/Users/Kamil/Desktop/PRCLI/PassRipperCLI/minizip-ng/build/_deps/zlib-subbuild/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\build\_deps\zlib-subbuild\CMakeFiles\3.31.5\CMakeSystem.cmake;C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\build\_deps\zlib-subbuild\zlib-populate-prefix\tmp\zlib-populate-mkdirs.cmake;E:\Other Programs\Cmake\share\cmake-3.31\Modules\CMakeDetermineSystem.cmake;E:\Other Programs\Cmake\share\cmake-3.31\Modules\CMakeGenericSystem.cmake;E:\Other Programs\Cmake\share\cmake-3.31\Modules\CMakeInitializeConfigs.cmake;E:\Other Programs\Cmake\share\cmake-3.31\Modules\CMakeSystem.cmake.in;E:\Other Programs\Cmake\share\cmake-3.31\Modules\CMakeSystemSpecificInformation.cmake;E:\Other Programs\Cmake\share\cmake-3.31\Modules\CMakeSystemSpecificInitialize.cmake;E:\Other Programs\Cmake\share\cmake-3.31\Modules\ExternalProject.cmake;E:\Other Programs\Cmake\share\cmake-3.31\Modules\ExternalProject\PatchInfo.txt.in;E:\Other Programs\Cmake\share\cmake-3.31\Modules\ExternalProject\RepositoryInfo.txt.in;E:\Other Programs\Cmake\share\cmake-3.31\Modules\ExternalProject\UpdateInfo.txt.in;E:\Other Programs\Cmake\share\cmake-3.31\Modules\ExternalProject\cfgcmd.txt.in;E:\Other Programs\Cmake\share\cmake-3.31\Modules\ExternalProject\gitclone.cmake.in;E:\Other Programs\Cmake\share\cmake-3.31\Modules\ExternalProject\gitupdate.cmake.in;E:\Other Programs\Cmake\share\cmake-3.31\Modules\ExternalProject\mkdirs.cmake.in;E:\Other Programs\Cmake\share\cmake-3.31\Modules\ExternalProject\shared_internal_commands.cmake;E:\Other Programs\Cmake\share\cmake-3.31\Modules\Platform\Windows-Initialize.cmake;E:\Other Programs\Cmake\share\cmake-3.31\Modules\Platform\Windows.cmake;E:\Other Programs\Cmake\share\cmake-3.31\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\build\_deps\zlib-subbuild\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\build\_deps\zlib-subbuild\ZERO_CHECK.vcxproj">
+      <Project>{469DA2AA-FC3E-3017-96A6-5A137E5CB00A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Kamil\Desktop\PRCLI\PassRipperCLI\minizip-ng\build\_deps\zlib-subbuild\zlib-populate.vcxproj">
+      <Project>{AD62668E-F822-3FF6-9B2C-87F6396F0338}</Project>
+      <Name>zlib-populate</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

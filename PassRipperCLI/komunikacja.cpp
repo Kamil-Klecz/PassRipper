@@ -1,0 +1,2 @@
+#include "komunikacja.h"
+
