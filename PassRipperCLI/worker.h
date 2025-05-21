@@ -1,22 +1,95 @@
 #pragma once
 #include "komunikacja.h"
-#include "mz.h"
-#include "mz_zip_rw.h"
+#include <zip.h>
 class Worker
 {
 public:
+public:
     Worker(const std::string& address, const std::string& port)
+        : addr(address), port(port)
     {
-        sock = comm.createClient(address.c_str(), port.c_str());
-        if (sock == INVALID_SOCKET) exit(EXIT_FAILURE);
-        std::cout << "Worker: connected to " << address << ':' << port << std::endl;
+        // nawiąż połączenie do managera
+        sock = comm.createClient(addr.c_str(), port.c_str());
+        if (sock == INVALID_SOCKET) {
+            std::cerr << "Worker: nie udało się połączyć z " << addr << ":" << port << std::endl;
+                exit(EXIT_FAILURE);
+        }
     }
+
+
+
+    // Uruchamia odbiór danych i łamanie hasła
+    void run() {
+        // 1. Odbierz plik ZIP
+        const std::string localZip = "worker_received.zip";
+        if (!comm.recvFile(sock, localZip)) {
+            std::cerr << "Worker: błąd odbioru pliku" << std::endl;
+                return;
+        }
+
+        // 2. Odbierz alfabet
+        if (!comm.recvString(sock, alphabet)) {
+            std::cerr << "Worker: błąd odbioru alfabetu" << std::endl;
+                return;
+        }
+
+        // 3. Odbierz maksymalną długość hasła
+        if (!comm.recvUInt8(sock, maxLen)) {
+            std::cerr << "Worker: błąd odbioru maxLen" << std::endl;
+                return;
+        }
+
+        // 4. Odbierz zakres do przeszukania
+        comm.recvUInt64(sock, range.start);
+        comm.recvUInt64(sock, range.end);
+
+        std::cout << "Worker: otrzymano zakres [" << range.start << "," << range.end << "] alfabet(len="
+                  << alphabet.size() << ") maxLen=" << int(maxLen) << std::endl;
+
+        // 5. Łamanie haseł
+        bool found = false;
+        std::string foundPwd;
+        for (uint64_t idx = range.start; idx < range.end; ++idx) {
+            std::string pwd = indexToPassword(idx, alphabet, maxLen);
+            if (tryPassword(localZip, pwd)) {
+                found = true;
+                foundPwd = pwd;
+                break;
+            }
+        }
+
+        // 6. Wyślij wynik
+        if (found) {
+            comm.sendString(sock, std::string("FOUND"));
+            comm.sendString(sock, foundPwd);
+            std::cout << "Worker: hasło znalezione: " << foundPwd << std::endl;
+        } else {
+            comm.sendString(sock, std::string("NOTFOUND"));
+            std::cout << "Worker: nie znaleziono hasła w przydzielonym zakresie" << std::endl;
+        }
+
+        shutdown(sock, SD_BOTH);
+        closesocket(sock);
+    }
+
+private:
+    Komunikacja comm;
+    SOCKET sock{INVALID_SOCKET};
+    std::string addr, port;
+
+    struct TaskRange {
+        uint64_t start;
+        uint64_t end;
+    } range;
+
+    std::string alphabet;
+    uint8_t maxLen{0};
 
     // Konwersja indeksu na hasło
     std::string indexToPassword(uint64_t index, const std::string& alphabet, uint8_t maxLen) {
         std::string pwd;
         uint64_t base = alphabet.size();
-        while (index > 0 && pwd.size() < maxLen) {
+        while ((index > 0) && (pwd.size() < maxLen)) {
             pwd.push_back(alphabet[index % base]);
             index /= base;
         }
@@ -24,106 +97,30 @@ public:
         return pwd;
     }
 
-
+    // Próba otwarcia archiwum ZIP za pomocą hasła
     bool tryPassword(const std::string& zipPath, const std::string& password) {
-        // 1) Utwórz reader
-        void* reader = mz_zip_reader_create();
-        if (!reader) return false;
+        int err = 0;
+        zip* za = zip_open(zipPath.c_str(), ZIP_RDONLY, &err);
+        if (!za) return false;
 
-        // 2) Ustaw hasło
-        mz_zip_reader_set_password(reader, password.c_str());
-
-        // 3) Otwórz plik ZIP
-        if (mz_zip_reader_open_file(reader, zipPath.c_str()) != MZ_OK) {
-            // cleanup
-            mz_zip_reader_delete(&reader); // albo free(reader) jeśli nie ma delete
+        zip_int64_t num_entries = zip_get_num_entries(za, 0);
+        if (num_entries == 0) {
+            zip_close(za);
             return false;
         }
 
-        // 4) Przejdź do pierwszego wpisu
-        bool ok = false;
-        if (mz_zip_reader_goto_first_entry(reader) == MZ_OK) {
-            if (mz_zip_reader_entry_open(reader) == MZ_OK) {
-                mz_zip_reader_entry_close(reader);
-                ok = true;
-            }
+        // Zakładamy, że testujemy pierwszy plik w archiwum
+        zip_file* zf = zip_fopen_encrypted(za, 0, 0, password.c_str());
+        if (!zf) {
+            zip_close(za);
+            return false;
         }
 
-        // 5) cleanup
-        mz_zip_reader_close(reader);
-        mz_zip_reader_delete(&reader); // lub free(reader)
+        char buf[16]; // próbujemy odczytać kilka bajtów
+        zip_int64_t bytes_read = zip_fread(zf, buf, sizeof(buf));
+        zip_fclose(zf);
+        zip_close(za);
 
-        return ok;
+        return bytes_read > 0;
     }
-
-
-
-    void run() {
-        const std::string localZip = "worker.zip";
-
-        // 1. Odbiór pliku ZIP
-        std::cout << "Worker: receiving data..." << std::endl;
-        if (!comm.recvFile(sock, localZip)) {
-            std::cerr << "Worker: failed to receive ZIP" << std::endl;
-            return;
-        }
-
-        // 2. Odbiór parametrów brute-force
-        std::string alphabet;
-        comm.recvString(sock, alphabet);
-        uint8_t maxLen;
-        comm.recvUInt8(sock, maxLen);
-        uint64_t start, end;
-        comm.recvUInt64(sock, start);
-        comm.recvUInt64(sock, end);
-
-        std::cout << "Worker: alphabet='" << alphabet << "' maxLen=" << (int)maxLen
-                  << " range=[" << start << "," << end << "]" << std::endl;
-
-        // 3. Brute-force
-        std::string foundPwd;
-        for (uint64_t idx = start; idx < end; ++idx) {
-            // a) konstrukcja hasła
-            std::string pwd = indexToPassword(idx, alphabet, maxLen);
-
-            // b) tworzymy i konfigurujemy reader ZIPa
-            void* reader = mz_zip_reader_create();
-            if (!reader) continue;
-
-            mz_zip_reader_set_password(reader, pwd.c_str());
-            if (mz_zip_reader_open_file(reader, localZip.c_str()) != MZ_OK) {
-                mz_zip_reader_delete(&reader);
-                continue;
-            }
-
-            // c) przejście do pierwszego wpisu i próba otwarcia
-            bool ok = false;
-            if (mz_zip_reader_goto_first_entry(reader) == MZ_OK) {
-                if (mz_zip_reader_entry_open(reader) == MZ_OK) {
-                    mz_zip_reader_entry_close(reader);
-                    ok = true;
-                }
-            }
-
-            // d) sprzątanie
-            mz_zip_reader_close(reader);
-            mz_zip_reader_delete(&reader);
-
-            if (ok) {
-                foundPwd = pwd;
-                break;
-            }
-        }
-
-        // 4. Wysłanie wyniku do Managera
-        comm.sendString(sock, foundPwd);
-        if (!foundPwd.empty())
-            std::cout << "Worker: found password '" << foundPwd << "'" << std::endl;
-        else
-            std::cout << "Worker: no password found" << std::endl;
-    }
-
-private:
-    Komunikacja comm;
-    SOCKET sock{INVALID_SOCKET};
 };

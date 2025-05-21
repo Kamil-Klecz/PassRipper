@@ -6,7 +6,6 @@
 #include <algorithm>
 
 #pragma comment(lib, "Ws2_32.lib")
-#pragma comment(lib, "minizip.lib")
 class Komunikacja
 {
 public:
@@ -157,10 +156,10 @@ public:
                 return false;
             }
             received += r;
+        }
+        CloseHandle(h);
+        return true;
     }
-    CloseHandle(h);
-    return true;
-}
     //Wysyłanie stringów itp
     bool sendString(SOCKET sock, const std::string& s) {
         uint32_t len = htonl((uint32_t)s.size());

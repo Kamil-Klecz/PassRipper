@@ -4,9 +4,13 @@
 #include <iostream>
 int main(int argc, char *argv[])
 {
+    std::string flush;
+    std::cin>>flush;
+    std::cin.clear();
+    std::string mode;
+    std::cout<<"Wybierz tryb: ";
+    std::cin>>mode;
     QCoreApplication a(argc, argv);
-
-    std::string mode; std::cout<<"Wybierz tryb: "; std::cin>>mode;
     if(mode=="manager"){
         std::string p;
         int c;
@@ -21,8 +25,11 @@ int main(int argc, char *argv[])
         std::cout<<"Addr: ";
         std::cin>>a;
         std::cout<<"Port: ";
-        std::cin>>p; Worker w(a,p);
+        std::cin>>p;
+        Worker w(a,p);
+        // Worker w(addr, port);
         w.run();
+
     }
     else std::cerr<<"Nie znany tryb\n";
     std::cin>>mode;

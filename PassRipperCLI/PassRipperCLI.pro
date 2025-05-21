@@ -1,8 +1,6 @@
 QT       = core
 CONFIG  += c++17 cmdline
-
-INCLUDEPATH += $$PWD/minizip-ng
-
+CONFIG   += console
 SOURCES += \
     komunikacja.cpp \
     main.cpp \
@@ -14,5 +12,16 @@ HEADERS += \
     manager.h \
     worker.h
 
-LIBS = $$PWD/minizip.lib
-win32:LIBS += -lbcrypt -ladvapi32
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/libzip/build/lib/release/ -lzip
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libzip/build/lib/debug/ -lzip
+else:unix: LIBS += -L$$PWD/libzip/build/lib/ -lzip
+
+INCLUDEPATH += $$PWD/libzip/lib
+DEPENDPATH += $$PWD/libzip/lib
+
+win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/libzip/build/lib/release/libzip.a
+else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/libzip/build/lib/debug/libzip.a
+else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/libzip/build/lib/release/zip.lib
+else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/libzip/build/lib/debug/zip.lib
+else:unix: PRE_TARGETDEPS += $$PWD/libzip/build/lib/libzip.a
+INCLUDEPATH += $$PWD/libzip/build
