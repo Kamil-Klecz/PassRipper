@@ -1,0 +1,20 @@
+^E:\GITHUB_REPOS_E\LIBZIP\BUILD\CMAKEFILES\698A6F78280E3D23D0A0F85688459CE0\ZIP_ERR_STR.C.RULE
+setlocal
+"E:\Other Programs\Cmake\bin\cmake.exe" -DPROJECT_SOURCE_DIR=E:/GitHub_Repos_E/libzip -DCMAKE_CURRENT_BINARY_DIR=E:/GitHub_Repos_E/libzip/build/lib -P E:/GitHub_Repos_E/libzip/cmake/GenerateZipErrorStrings.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^E:\GITHUB_REPOS_E\LIBZIP\LIB\CMAKELISTS.TXT
+setlocal
+"E:\Other Programs\Cmake\bin\cmake.exe" -SE:/GitHub_Repos_E/libzip -BE:/GitHub_Repos_E/libzip/build --check-stamp-file E:/GitHub_Repos_E/libzip/build/lib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

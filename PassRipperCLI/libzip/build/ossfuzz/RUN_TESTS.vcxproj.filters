@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\GitHub_Repos_E\libzip\build\CMakeFiles\f77ee6559b35c90204f1cbd19e1cb52c\RUN_TESTS_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{15307B47-FA5B-3A5B-A044-420325F8E1D7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

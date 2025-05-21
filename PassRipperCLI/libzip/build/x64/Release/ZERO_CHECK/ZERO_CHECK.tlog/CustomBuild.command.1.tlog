@@ -1,0 +1,10 @@
+^E:\GITHUB_REPOS_E\LIBZIP\BUILD\CMAKEFILES\F6FEB3F058CD969DF5D614A91A65E3C5\GENERATE.STAMP.RULE
+setlocal
+"E:\Other Programs\Cmake\bin\cmake.exe" -SE:/GitHub_Repos_E/libzip -BE:/GitHub_Repos_E/libzip/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file E:/GitHub_Repos_E/libzip/build/libzip.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

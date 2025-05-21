@@ -1,0 +1,10 @@
+^E:\GITHUB_REPOS_E\LIBZIP\VSTUDIO\ZLIB\BUILD\CMAKEFILES\6C84047A40187DEB6B241A8A1F0A6982\GENERATE.STAMP.RULE
+setlocal
+"E:\Other Programs\Cmake\bin\cmake.exe" -SE:/GitHub_Repos_E/libzip/vstudio/zlib -BE:/GitHub_Repos_E/libzip/vstudio/zlib/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file E:/GitHub_Repos_E/libzip/vstudio/zlib/build/zlib.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

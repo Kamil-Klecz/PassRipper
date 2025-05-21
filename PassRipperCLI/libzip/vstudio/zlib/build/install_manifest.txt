@@ -1,0 +1,7 @@
+E:/GitHub_Repos_E/libzip/vstudio/zlib/installed/lib/zlib.lib
+E:/GitHub_Repos_E/libzip/vstudio/zlib/installed/bin/zlib.dll
+E:/GitHub_Repos_E/libzip/vstudio/zlib/installed/lib/zlibstatic.lib
+E:/GitHub_Repos_E/libzip/vstudio/zlib/installed/include/zconf.h
+E:/GitHub_Repos_E/libzip/vstudio/zlib/installed/include/zlib.h
+E:/GitHub_Repos_E/libzip/vstudio/zlib/installed/share/man/man3/zlib.3
+E:/GitHub_Repos_E/libzip/vstudio/zlib/installed/share/pkgconfig/zlib.pc

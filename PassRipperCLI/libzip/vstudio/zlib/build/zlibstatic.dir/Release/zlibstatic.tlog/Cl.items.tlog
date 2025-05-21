@@ -1,0 +1,15 @@
+E:\GitHub_Repos_E\libzip\vstudio\zlib\adler32.c;E:\GitHub_Repos_E\libzip\vstudio\zlib\build\zlibstatic.dir\Release\adler32.obj
+E:\GitHub_Repos_E\libzip\vstudio\zlib\compress.c;E:\GitHub_Repos_E\libzip\vstudio\zlib\build\zlibstatic.dir\Release\compress.obj
+E:\GitHub_Repos_E\libzip\vstudio\zlib\crc32.c;E:\GitHub_Repos_E\libzip\vstudio\zlib\build\zlibstatic.dir\Release\crc32.obj
+E:\GitHub_Repos_E\libzip\vstudio\zlib\deflate.c;E:\GitHub_Repos_E\libzip\vstudio\zlib\build\zlibstatic.dir\Release\deflate.obj
+E:\GitHub_Repos_E\libzip\vstudio\zlib\gzclose.c;E:\GitHub_Repos_E\libzip\vstudio\zlib\build\zlibstatic.dir\Release\gzclose.obj
+E:\GitHub_Repos_E\libzip\vstudio\zlib\gzlib.c;E:\GitHub_Repos_E\libzip\vstudio\zlib\build\zlibstatic.dir\Release\gzlib.obj
+E:\GitHub_Repos_E\libzip\vstudio\zlib\gzread.c;E:\GitHub_Repos_E\libzip\vstudio\zlib\build\zlibstatic.dir\Release\gzread.obj
+E:\GitHub_Repos_E\libzip\vstudio\zlib\gzwrite.c;E:\GitHub_Repos_E\libzip\vstudio\zlib\build\zlibstatic.dir\Release\gzwrite.obj
+E:\GitHub_Repos_E\libzip\vstudio\zlib\inflate.c;E:\GitHub_Repos_E\libzip\vstudio\zlib\build\zlibstatic.dir\Release\inflate.obj
+E:\GitHub_Repos_E\libzip\vstudio\zlib\infback.c;E:\GitHub_Repos_E\libzip\vstudio\zlib\build\zlibstatic.dir\Release\infback.obj
+E:\GitHub_Repos_E\libzip\vstudio\zlib\inftrees.c;E:\GitHub_Repos_E\libzip\vstudio\zlib\build\zlibstatic.dir\Release\inftrees.obj
+E:\GitHub_Repos_E\libzip\vstudio\zlib\inffast.c;E:\GitHub_Repos_E\libzip\vstudio\zlib\build\zlibstatic.dir\Release\inffast.obj
+E:\GitHub_Repos_E\libzip\vstudio\zlib\trees.c;E:\GitHub_Repos_E\libzip\vstudio\zlib\build\zlibstatic.dir\Release\trees.obj
+E:\GitHub_Repos_E\libzip\vstudio\zlib\uncompr.c;E:\GitHub_Repos_E\libzip\vstudio\zlib\build\zlibstatic.dir\Release\uncompr.obj
+E:\GitHub_Repos_E\libzip\vstudio\zlib\zutil.c;E:\GitHub_Repos_E\libzip\vstudio\zlib\build\zlibstatic.dir\Release\zutil.obj

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\GitHub_Repos_E\libzip\build\CMakeFiles\7bf128a8a7134ceae154effabc4f0ec7\update_zip_errors.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\GitHub_Repos_E\libzip\man\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\GitHub_Repos_E\libzip\build\man\CMakeFiles\update_zip_errors" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{15307B47-FA5B-3A5B-A044-420325F8E1D7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
