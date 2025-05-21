@@ -99,28 +99,38 @@ private:
 
     // Próba otwarcia archiwum ZIP za pomocą hasła
     bool tryPassword(const std::string& zipPath, const std::string& password) {
+
+        std::cout << "proba: " << password << std::endl;
         int err = 0;
         zip* za = zip_open(zipPath.c_str(), ZIP_RDONLY, &err);
         if (!za) return false;
 
-        zip_int64_t num_entries = zip_get_num_entries(za, 0);
-        if (num_entries == 0) {
+        zip_int64_t n = zip_get_num_entries(za, 0);
+        for (zip_uint64_t i = 0; i < (zip_uint64_t)n; ++i) {
+            struct zip_stat st;
+            if (zip_stat_index(za, i, 0, &st) != 0)
+                continue;
+            // pomijamy katalogi lub pliki bez szyfrowania
+            if (st.encryption_method == ZIP_EM_NONE)
+                continue;
+
+            // próbujemy otworzyć zaszyfrowany plik po nazwie
+            zip_file_t* zf = zip_fopen_encrypted(za, st.name, 0, password.c_str());
+            if (!zf) {
+                zip_close(za);
+                return false;
+            }
+            // próbujemy odczytać kilka bajtów
+            char buf[16];
+            zip_int64_t bytes = zip_fread(zf, buf, sizeof(buf));
+            zip_fclose(zf);
             zip_close(za);
-            return false;
+
+            return (bytes > 0);
         }
 
-        // Zakładamy, że testujemy pierwszy plik w archiwum
-        zip_file* zf = zip_fopen_encrypted(za, 0, 0, password.c_str());
-        if (!zf) {
-            zip_close(za);
-            return false;
-        }
-
-        char buf[16]; // próbujemy odczytać kilka bajtów
-        zip_int64_t bytes_read = zip_fread(zf, buf, sizeof(buf));
-        zip_fclose(zf);
+        // brak plików wymagających hasła -> nie złań
         zip_close(za);
-
-        return bytes_read > 0;
+        return false;
     }
 };
