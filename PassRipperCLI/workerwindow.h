@@ -2,6 +2,7 @@
 #define WORKERWINDOW_H
 
 #include <QWidget>
+#include <QString>
 #include "worker.h"
 
 namespace Ui {
@@ -24,6 +25,7 @@ private:
     Worker *worker;
 
     bool isValidIpAddress(const QString &ip);
+    void appendLogs(const QString &msg);
 };
 
 #endif // WORKERWINDOW_H

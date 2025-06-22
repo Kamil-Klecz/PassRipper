@@ -45,6 +45,7 @@ bool WorkerWindow::isValidIpAddress(const QString &ip)
     return ipRegex.match(ip).hasMatch();
 }
 
+//zrobione pod connecta - może zbędne - zobaczymy
 void appendLogs(const QString &msg)
 {
     ui->textEditLogs->append(msg);

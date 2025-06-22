@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>485</width>
+    <height>296</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@
     <rect>
      <x>0</x>
      <y>20</y>
-     <width>475</width>
+     <width>481</width>
      <height>271</height>
     </rect>
    </property>
@@ -91,19 +91,6 @@
          <widget class="QLabel" name="labelThreads">
           <property name="text">
            <string>Choose number of threads</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Choose the number of combinations to check</string>
           </property>
          </widget>
         </item>
