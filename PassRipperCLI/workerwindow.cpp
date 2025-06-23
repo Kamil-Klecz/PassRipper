@@ -46,7 +46,7 @@ bool WorkerWindow::isValidIpAddress(const QString &ip)
 }
 
 //zrobione pod connecta - może zbędne - zobaczymy
-void appendLogs(const QString &msg)
+void WorkerWindow::appendLogs(const QString &msg)
 {
     ui->textEditLogs->append(msg);
 }

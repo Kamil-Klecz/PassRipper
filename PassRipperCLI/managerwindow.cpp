@@ -40,9 +40,9 @@ void ManagerWindow::on_btnSend_clicked()
     setInputsEnabled(false);
 
     appendLog(QString("Sending job: File=%1, MaxLength=%2, Specials=%3")
-                  .arg(selectedFilePath)
-                  .arg(maxLength)
-                  .arg(includeSpecials ? "Yes" : "No"));
+                  .arg(filePath)
+                  .arg(maxLen)
+                  .arg(includeSpecialChars ? "Yes" : "No"));
 
     //logika
 }
