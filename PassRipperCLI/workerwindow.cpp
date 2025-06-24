@@ -3,6 +3,7 @@
 
 #include <QRegularExpression>
 #include <QMessageBox>
+#include <QHostAddress>
 
 WorkerWindow::WorkerWindow(QWidget *parent)
     : QWidget(parent)
@@ -36,13 +37,11 @@ void WorkerWindow::on_btnConnect_clicked()
 
 bool WorkerWindow::isValidIpAddress(const QString &ip)
 {
-    QRegularExpression ipRegex(
-        R"(^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\."
-        R"(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\."
-        R"(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\."
-        R"(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$)");
-
-    return ipRegex.match(ip).hasMatch();
+    QHostAddress address;
+    if (address.setAddress(ip)) {
+        return address.protocol() == QAbstractSocket::IPv4Protocol;
+    }
+    return false;
 }
 
 //zrobione pod connecta - może zbędne - zobaczymy

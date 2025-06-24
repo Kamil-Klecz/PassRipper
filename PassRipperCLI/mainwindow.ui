@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Choose work mode</string>
+   <string>Work mode</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -105,14 +105,14 @@
        <item>
         <widget class="QPushButton" name="btnConfirm">
          <property name="text">
-          <string>Zatwierdź</string>
+          <string>Confirm</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="btnClose">
          <property name="text">
-          <string>Zamknij</string>
+          <string>Close</string>
          </property>
         </widget>
        </item>

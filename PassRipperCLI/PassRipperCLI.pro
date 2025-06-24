@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui network
 QT += widgets
 CONFIG  += c++17 cmdline
 CONFIG   += console
