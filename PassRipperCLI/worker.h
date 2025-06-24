@@ -1,6 +1,10 @@
 #pragma once
 #include "komunikacja.h"
 #include <zip.h>
+#include <thread>
+#include <vector>
+#include <mutex>
+#include <atomic>
 class Worker
 {
 public:
@@ -46,17 +50,35 @@ public:
         std::cout << "Worker: otrzymano zakres [" << range.start << "," << range.end << "] alfabet(len="
                   << alphabet.size() << ") maxLen=" << int(maxLen) << std::endl;
 
-        // 5. Łamanie haseł
-        bool found = false;
+        // Wielowątkowe łamanie haseł
+        const unsigned numThreads = std::thread::hardware_concurrency(); // lub stała np. 4
+        std::atomic<bool> found(false);
         std::string foundPwd;
-        for (uint64_t idx = range.start; idx < range.end; ++idx) {
-            std::string pwd = indexToPassword(idx, alphabet, maxLen);
-            if (tryPassword(localZip, pwd)) {
-                found = true;
-                foundPwd = pwd;
-                break;
-            }
+        std::mutex mtx;
+        std::vector<std::thread> threads;
+
+        uint64_t total = range.end - range.start;
+        uint64_t chunkSize = total / numThreads;
+
+        for (unsigned i = 0; i < numThreads; ++i) {
+                uint64_t start = range.start + i * chunkSize;
+                uint64_t end = (i == numThreads - 1) ? range.end : start + chunkSize;
+
+                threads.emplace_back([&, start, end]() {
+                    for (uint64_t idx = start; idx < end && !found.load(); ++idx) {
+                        std::string pwd = indexToPassword(idx, alphabet, maxLen);
+                        if (tryPassword(localZip, pwd)) {
+                            std::lock_guard<std::mutex> lock(mtx);
+                            if (!found.load()) {
+                                foundPwd = pwd;
+                                found = true;
+                            }
+                            break;
+                        }
+                    }
+                });
         }
+
 
         // 6. Wyślij wynik
         if (found) {
