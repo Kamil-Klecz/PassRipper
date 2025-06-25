@@ -6,6 +6,12 @@
 class Manager
 {
 public:
+
+
+    std::string zipPath;
+    std::string alphabet="abcdefghijklmnopqrstuvwxyz"; //ToDo wartosć z ui
+    uint8_t maxLen;
+
     Manager(const char* port, int workerCount)
         : count(workerCount)
     {
@@ -16,9 +22,7 @@ public:
     }
 
     void run(){
-        const std::string zipPath="archive.zip";
-        const std::string alphabet="abcdefghijklmnopqrstuvwxyz";
-        uint8_t maxLen=5;
+
         uint64_t totalTasks=1000000;
         uint64_t chunk=totalTasks/count;
         uint64_t start=0;

@@ -8,7 +8,10 @@
 class Worker
 {
 public:
-public:
+
+    unsigned numThreads = 4; //default
+
+
     Worker(const std::string& address, const std::string& port)
         : addr(address), port(port)
     {
@@ -51,7 +54,7 @@ public:
                   << alphabet.size() << ") maxLen=" << int(maxLen) << std::endl;
 
         // Wielowątkowe łamanie haseł
-        const unsigned numThreads = std::thread::hardware_concurrency(); // lub stała np. 4
+
         std::atomic<bool> found(false);
         std::string foundPwd;
         std::mutex mtx;

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QString>
+#include "manager.h"
 
 namespace Ui {
 class ManagerWindow;
@@ -27,6 +28,7 @@ private:
     void setInputsEnabled(bool enabled);
     void appendLog(const QString &message);
     void passwordFound(const QString &password);
+    Manager* manager;
 };
 
 #endif // MANAGERWINDOW_H
