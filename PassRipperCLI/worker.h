@@ -23,8 +23,6 @@ public:
         }
     }
 
-
-
     // Uruchamia odbiór danych i łamanie hasła
     void run() {
         // 1. Odbierz plik ZIP
@@ -74,7 +72,7 @@ public:
                             std::lock_guard<std::mutex> lock(mtx);
                             if (!found.load()) {
                                 foundPwd = pwd;
-                                found = true;
+                                found.store(true); //semantycznie poprawna wersja 'found = true'
                             }
                             break;
                         }
@@ -82,6 +80,11 @@ public:
                 });
         }
 
+        for (auto& t : threads) {
+                if (t.joinable()) {
+                    t.join();
+                }
+        }
 
         // 6. Wyślij wynik
         if (found) {
@@ -95,7 +98,7 @@ public:
 
         shutdown(sock, SD_BOTH);
         closesocket(sock);
-    }
+}
 
 private:
     Komunikacja comm;
