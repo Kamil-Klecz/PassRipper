@@ -48,8 +48,9 @@ void ManagerWindow::on_btnSend_clicked()
                   .arg(includeSpecialChars ? "Yes" : "No"));
 
     //logika
-    manager = new Manager(ui->spinBoxPort->text().toStdString().data(), 1); //TODO dodać workercount
+    manager = new Manager(ui->spinBoxPort->text().toStdString().data(), ui->spinBoxWorkerCount->value()); //TODO dodać workercount
     manager->maxLen = maxLen;
+    //manager->alphabet = ...
     manager->zipPath = ui->lineEditZipPath->text().toStdString();
     manager->run();
 }
