@@ -19,7 +19,7 @@ public:
         sock = comm.createClient(addr.c_str(), port.c_str());
         if (sock == INVALID_SOCKET) {
             std::cerr << "Worker: nie udało się połączyć z " << addr << ":" << port << std::endl;
-                exit(EXIT_FAILURE);
+                //exit(EXIT_FAILURE);
         }
     }
 

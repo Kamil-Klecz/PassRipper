@@ -13,11 +13,13 @@ ManagerWindow::ManagerWindow(QWidget *parent)
 
 ManagerWindow::~ManagerWindow()
 {
+    std::cout<<"ManagerWidnow: destructor working"<<std::endl;
     delete ui;
 }
 
 void ManagerWindow::on_btnChooseZip_clicked()
 {
+    std::cout<<"ManagerWidnow: btnChooseZipClicked"<<std::endl;
     QString tmpPath = QFileDialog::getOpenFileName(this, "Select ZIP File", "", "ZIP Files (*.zip)");
     if (!tmpPath.isEmpty())
     {
@@ -28,16 +30,17 @@ void ManagerWindow::on_btnChooseZip_clicked()
 
 void ManagerWindow::on_btnSend_clicked()
 {
+    std::cout<<"ManagerWidnow: send clicked"<<std::endl;
     if(filePath.isEmpty())
     {
         QMessageBox::warning(this, "Missing File", "Please select a ZIP file first.");
         return;
     }
-
+    std::cout<<"ManagerWidnow: File verification successful" <<std::endl;
     bool includeSpecialChars = ui->checkSpecialChars->isChecked();
     int maxLen = ui->spinBoxMaxLen->value();
 
-    setInputsEnabled(false);
+    //setInputsEnabled(false);
 
     appendLog(QString("Sending job: File=%1, MaxLength=%2, Specials=%3")
                   .arg(filePath)
@@ -45,7 +48,7 @@ void ManagerWindow::on_btnSend_clicked()
                   .arg(includeSpecialChars ? "Yes" : "No"));
 
     //logika
-    manager = new Manager(ui->labelPort->text().toStdString().data(), 1); //TODO dodać workercount
+    manager = new Manager(ui->spinBoxPort->text().toStdString().data(), 1); //TODO dodać workercount
     manager->maxLen = maxLen;
     manager->zipPath = ui->lineEditZipPath->text().toStdString();
     manager->run();

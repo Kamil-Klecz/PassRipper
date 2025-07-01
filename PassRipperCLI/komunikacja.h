@@ -59,6 +59,7 @@ public:
 
     // Akceptuje jedno połączenie na listenerze
     SOCKET acceptConnection(SOCKET listenSock) {
+        std::cout<<"Comm: Accepting commection..." <<std::endl;
         SOCKET client = accept(listenSock, nullptr, nullptr);
         if (client == INVALID_SOCKET) {
             std::cerr << "accept failed" << std::endl;
