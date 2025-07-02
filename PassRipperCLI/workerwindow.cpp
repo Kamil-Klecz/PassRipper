@@ -20,7 +20,7 @@ WorkerWindow::~WorkerWindow()
 void WorkerWindow::on_btnConnect_clicked()
 {
     QString ip = ui->lineEditIP->text().trimmed();
-    QString port = QString::number(ui->spinBoxPort->value()); //;
+    QString port = QString::number(ui->spinBoxPort->value());
     int numThreads = ui->spinBoxThreads->value();
 
     if(!isValidIpAddress(ip))
@@ -31,7 +31,6 @@ void WorkerWindow::on_btnConnect_clicked()
 
     appendLogs(QString("Attempting connection to %1:%2...").arg(ip).arg(port));
 
-    //logika -
     worker = new Worker(ip.toStdString(), port.toStdString());
     worker->numThreads = numThreads;
     worker->run();
@@ -46,7 +45,6 @@ bool WorkerWindow::isValidIpAddress(const QString &ip)
     return false;
 }
 
-//zrobione pod connecta - może zbędne - zobaczymy
 void WorkerWindow::appendLogs(const QString &msg)
 {
     ui->textEditLogs->append(msg);

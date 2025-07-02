@@ -24,6 +24,8 @@ private slots:
 private:
     Ui::ManagerWindow *ui;
     QString filePath;
+    QString alphabet = "abcdefghijklmnopqrstuvwxyz";
+    QString specialChars = "!@#$%^&*()_-+=,<.>/?;:'{|[}]";
 
     void setInputsEnabled(bool enabled);
     void appendLog(const QString &message);

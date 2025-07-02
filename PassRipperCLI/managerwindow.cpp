@@ -40,18 +40,17 @@ void ManagerWindow::on_btnSend_clicked()
     bool includeSpecialChars = ui->checkSpecialChars->isChecked();
     int maxLen = ui->spinBoxMaxLen->value();
 
-    //setInputsEnabled(false);
+    setInputsEnabled(false);
 
     appendLog(QString("Sending job: File=%1, MaxLength=%2, Specials=%3")
                   .arg(filePath)
                   .arg(maxLen)
                   .arg(includeSpecialChars ? "Yes" : "No"));
 
-    //logika
-    manager = new Manager(ui->spinBoxPort->text().toStdString().data(), ui->spinBoxWorkerCount->value()); //TODO dodać workercount
+    manager = new Manager(ui->spinBoxPort->text().toStdString().data(), ui->spinBoxWorkerCount->value());
     manager->maxLen = maxLen;
-    //manager->alphabet = ...
-    manager->zipPath = ui->lineEditZipPath->text().toStdString();
+    manager->alphabet = ui->checkSpecialChars->isChecked() ? alphabet+specialChars : alphabet;
+    manager->zipPath = ui->lineEditZipPath->text();
     manager->run();
 }
 
@@ -63,7 +62,6 @@ void ManagerWindow::setInputsEnabled(bool enabled)
     ui->btnSend->setEnabled(enabled);
 }
 
-//zrobione pod connecta - może do wywalenia
 void ManagerWindow::appendLog(const QString &message)
 {
     ui->textEditLogs->append(message);

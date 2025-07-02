@@ -29,6 +29,10 @@ void MainWindow::on_btnConfirm_clicked()
         managerWindow = new ManagerWindow();
         managerWindow->show();
     }
+    else
+    {
+        return;
+    }
 
     this->close();
 }

@@ -1,15 +1,13 @@
-
 #pragma once
 #include "komunikacja.h"
+#include <QString>
 #pragma comment(lib, "Ws2_32.lib")
 
 class Manager
 {
 public:
-
-
-    std::string zipPath;
-    std::string alphabet="abcdefghijklmnopqrstuvwxyz"; //ToDo wartosć z ui
+    QString zipPath;
+    QString alphabet;
     uint8_t maxLen;
 
     Manager(const char* port, int workerCount)
@@ -21,26 +19,7 @@ public:
         std::cout << "Manager: listening on port " << port << std::endl;
     }
 
-    void run(){
-        std::cout<<"Manager: running";
-        uint64_t totalTasks=1000000;
-        uint64_t chunk=totalTasks/count;
-        uint64_t start=0;
-        for(int i=0;i<count;i++){
-
-            SOCKET s=comm.acceptConnection(listenSock);
-            std::cout<<"Manager: worker"<<i+1<<" connected\n";
-            comm.sendFile(s,zipPath);
-            comm.sendString(s,alphabet);
-            comm.sendUInt8(s,maxLen);
-            uint64_t end=(i+1==count?totalTasks:start+chunk);
-            comm.sendUInt64(s,start);
-            comm.sendUInt64(s,end);
-            std::cout<<"Sent range ["<<start<<","<<end<<"] alphabet(len="<<alphabet.size()<<") maxLen="<<(int)maxLen<<"\n";
-            shutdown(s,SD_BOTH); closesocket(s);
-            start+=chunk;
-        }
-    }
+    void run();
 
 private:
     Komunikacja comm;
