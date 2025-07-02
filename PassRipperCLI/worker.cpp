@@ -1,23 +1,24 @@
 #include "worker.h"
+#include "workerwindow.h"
 
 void Worker::run()
 {
     // 1. Odbierz plik ZIP
     const std::string localZip = "worker_received.zip";
     if (!comm.recvFile(sock, localZip)) {
-        std::cerr << "Worker: błąd odbioru pliku" << std::endl;
+        window->appendLogs("Failed to receive filePath");
         return;
     }
 
     // 2. Odbierz alfabet
     if (!comm.recvString(sock, alphabet)) {
-        std::cerr << "Worker: błąd odbioru alfabetu" << std::endl;
+        window->appendLogs("Failed to receive alphabet");
         return;
     }
 
     // 3. Odbierz maksymalną długość hasła
     if (!comm.recvUInt8(sock, maxLen)) {
-        std::cerr << "Worker: błąd odbioru maxLen" << std::endl;
+        window->appendLogs("Failed to receive maxLen");
         return;
     }
 
@@ -29,7 +30,6 @@ void Worker::run()
               << alphabet.size() << ") maxLen=" << int(maxLen) << std::endl;
 
     // Wielowątkowe łamanie haseł
-
     std::atomic<bool> found(false);
     std::string foundPwd;
     std::mutex mtx;
@@ -132,4 +132,17 @@ bool Worker::tryPassword(const std::string& zipPath, const std::string& password
     // brak plików wymagających hasła -> nie złań
     zip_close(za);
     return false;
+}
+
+
+void Worker::setup()
+{
+    std::cerr<<addr.c_str()<<std::endl;std::cerr<<port.c_str()<<std::endl;
+    sock = comm.createClient(addr.c_str(), port.c_str());
+    if (sock == INVALID_SOCKET)
+    {
+        std::cerr<<"connect in setup faield"<<std::endl;
+        window->appendLogs(QString("Connection with %1:%2 failed").arg(QString::fromStdString(addr), QString::fromStdString(port)));
+        //exit(EXIT_FAILURE);
+    }
 }

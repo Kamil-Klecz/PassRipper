@@ -5,7 +5,8 @@
 #include <QString>
 #include "worker.h"
 
-namespace Ui {
+namespace Ui
+{
 class WorkerWindow;
 }
 
@@ -17,6 +18,8 @@ public:
     explicit WorkerWindow(QWidget *parent = nullptr);
     ~WorkerWindow();
 
+    void appendLogs(const QString &msg);
+
 private slots:
     void on_btnConnect_clicked();
 
@@ -25,7 +28,6 @@ private:
     Worker *worker;
 
     bool isValidIpAddress(const QString &ip);
-    void appendLogs(const QString &msg);
 };
 
 #endif // WORKERWINDOW_H

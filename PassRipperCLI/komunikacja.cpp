@@ -45,7 +45,7 @@ SOCKET Komunikacja::createListener(const char* port)
 
 SOCKET Komunikacja::acceptConnection(SOCKET listenSock)
 {
-    std::cout<<"Comm: Accepting commection..." <<std::endl;
+    std::cout<<"Comm: Accepting connection..." <<std::endl;
     SOCKET client = accept(listenSock, nullptr, nullptr);
     if (client == INVALID_SOCKET) {
         std::cerr << "accept failed" << std::endl;
@@ -72,7 +72,7 @@ SOCKET Komunikacja::createClient(const char* address, const char* port) {
     }
 
     if (connect(sock, res->ai_addr, static_cast<int>(res->ai_addrlen)) == SOCKET_ERROR) {
-        std::cerr << "connect failed" << std::endl;
+        std::cerr << "connect failed" << WSAGetLastError() << std::endl;
         closesocket(sock);
         freeaddrinfo(res);
         return INVALID_SOCKET;

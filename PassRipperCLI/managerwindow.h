@@ -17,6 +17,8 @@ public:
     explicit ManagerWindow(QWidget *parent = nullptr);
     ~ManagerWindow();
 
+    void appendLog(const QString &message);
+
 private slots:
     void on_btnChooseZip_clicked();
     void on_btnSend_clicked();
@@ -28,7 +30,6 @@ private:
     QString specialChars = "!@#$%^&*()_-+=,<.>/?;:'{|[}]";
 
     void setInputsEnabled(bool enabled);
-    void appendLog(const QString &message);
     void passwordFound(const QString &password);
     Manager* manager;
 };

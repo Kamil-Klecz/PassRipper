@@ -29,9 +29,10 @@ void WorkerWindow::on_btnConnect_clicked()
         return;
     }
 
-    appendLogs(QString("Attempting connection to %1:%2...").arg(ip).arg(port));
+    appendLogs(QString("Attempting connection to %1:%2...").arg(ip, port));
 
-    worker = new Worker(ip.toStdString(), port.toStdString());
+    worker = new Worker(ip.toStdString(), port.toStdString(), this);
+    worker->setup();
     worker->numThreads = numThreads;
     worker->run();
 }

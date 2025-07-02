@@ -13,13 +13,11 @@ ManagerWindow::ManagerWindow(QWidget *parent)
 
 ManagerWindow::~ManagerWindow()
 {
-    std::cout<<"ManagerWidnow: destructor working"<<std::endl;
     delete ui;
 }
 
 void ManagerWindow::on_btnChooseZip_clicked()
 {
-    std::cout<<"ManagerWidnow: btnChooseZipClicked"<<std::endl;
     QString tmpPath = QFileDialog::getOpenFileName(this, "Select ZIP File", "", "ZIP Files (*.zip)");
     if (!tmpPath.isEmpty())
     {
@@ -30,13 +28,12 @@ void ManagerWindow::on_btnChooseZip_clicked()
 
 void ManagerWindow::on_btnSend_clicked()
 {
-    std::cout<<"ManagerWidnow: send clicked"<<std::endl;
     if(filePath.isEmpty())
     {
         QMessageBox::warning(this, "Missing File", "Please select a ZIP file first.");
         return;
     }
-    std::cout<<"ManagerWidnow: File verification successful" <<std::endl;
+
     bool includeSpecialChars = ui->checkSpecialChars->isChecked();
     int maxLen = ui->spinBoxMaxLen->value();
 
@@ -47,7 +44,7 @@ void ManagerWindow::on_btnSend_clicked()
                   .arg(maxLen)
                   .arg(includeSpecialChars ? "Yes" : "No"));
 
-    manager = new Manager(ui->spinBoxPort->text().toStdString().data(), ui->spinBoxWorkerCount->value());
+    manager = new Manager(ui->spinBoxPort->text().toStdString().data(), ui->spinBoxWorkerCount->value(), this);
     manager->maxLen = maxLen;
     manager->alphabet = ui->checkSpecialChars->isChecked() ? alphabet+specialChars : alphabet;
     manager->zipPath = ui->lineEditZipPath->text();
@@ -60,6 +57,8 @@ void ManagerWindow::setInputsEnabled(bool enabled)
     ui->checkSpecialChars->setEnabled(enabled);
     ui->spinBoxMaxLen->setEnabled(enabled);
     ui->btnSend->setEnabled(enabled);
+    ui->spinBoxPort->setEnabled(enabled);
+    ui->spinBoxWorkerCount->setEnabled(enabled);
 }
 
 void ManagerWindow::appendLog(const QString &message)

@@ -1,30 +1,31 @@
 #pragma once
+
+class WorkerWindow;
+
 #include "komunikacja.h"
 #include <zip.h>
 #include <thread>
 #include <vector>
 #include <mutex>
 #include <atomic>
+
 class Worker
 {
 public:
-    unsigned numThreads = 4; //default
+    unsigned numThreads;
 
-    Worker(const std::string& address, const std::string& port)
-        : addr(address), port(port)
-    {
-        // nawiąż połączenie do managera
-        sock = comm.createClient(addr.c_str(), port.c_str());
-        if (sock == INVALID_SOCKET) {
-            std::cerr << "Worker: nie udało się połączyć z " << addr << ":" << port << std::endl;
-                //exit(EXIT_FAILURE);
-        }
-    }
+    Worker(const std::string& address, const std::string& port, WorkerWindow* win)
+        : addr(address), port(port), window(win)
+    {}
 
     // Uruchamia odbiór danych i łamanie hasła
     void run();
 
+    //Setup klienta
+    void setup();
+
 private:
+    WorkerWindow* window;
     Komunikacja comm;
     SOCKET sock{INVALID_SOCKET};
     std::string addr, port;
