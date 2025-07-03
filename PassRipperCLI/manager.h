@@ -3,6 +3,10 @@
 class ManagerWindow;
 
 #include "komunikacja.h"
+#include <thread>
+#include <vector>
+#include <mutex>
+#include <atomic>
 #include <QString>
 #include <QObject>
 #pragma comment(lib, "Ws2_32.lib")
@@ -26,14 +30,10 @@ public:
         }
         listenSock = ls;
     }
-
-
 public slots:
     void run();
 signals:
     void finished();
-
-
 private:
     Komunikacja comm;
     SOCKET listenSock{INVALID_SOCKET};

@@ -18,6 +18,7 @@ public:
     ~ManagerWindow();
 
     void appendLog(const QString &message);
+    void setInputsEnabled(bool enabled);
 
 private slots:
     void on_btnChooseZip_clicked();
@@ -29,8 +30,6 @@ private:
     QString alphabet = "abcdefghijklmnopqrstuvwxyz";
     QString specialChars = "!@#$%^&*()_-+=,<.>/?;:'{|[}]";
 
-    void setInputsEnabled(bool enabled);
-    void passwordFound(const QString &password);
     Manager* manager;
 };
 

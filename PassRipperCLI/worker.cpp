@@ -4,6 +4,7 @@
 void Worker::run()
 {
     setup();
+
     // 1. Odbierz plik ZIP
     const std::string localZip = "worker_received.zip";
     if (!comm.recvFile(sock, localZip)) {
@@ -27,7 +28,7 @@ void Worker::run()
     comm.recvUInt64(sock, range.start);
     comm.recvUInt64(sock, range.end);
 
-    emit logMessage(QString("Worker: otrzymano zakres [%1, %2] alfabet(len=%3) maxLen=%4")
+    emit logMessage(QString("Worker: Received range [%1, %2], alphabet(len=%3), maxLen=%4")
                         .arg(range.start)
                         .arg(range.end)
                         .arg(alphabet.size())
@@ -47,14 +48,16 @@ void Worker::run()
         uint64_t start = range.start + i * chunkSize;
         uint64_t end = (i == numThreads - 1) ? range.end : start + chunkSize;
 
-        threads.emplace_back([&, start, end]() {
+        threads.emplace_back([&, start, end]()
+        {
             for (uint64_t idx = start; idx < end && !found.load(); ++idx)
             {
                 std::string pwd = indexToPassword(idx, alphabet, maxLen);
                 if (tryPassword(localZip, pwd))
                 {
                     std::lock_guard<std::mutex> lock(mtx);
-                    if (!found.load()) {
+                    if (!found.load())
+                    {
                         foundPwd = pwd;
                         found.store(true); //semantycznie poprawna wersja 'found = true'
                     }
@@ -77,11 +80,11 @@ void Worker::run()
     {
         comm.sendString(sock, std::string("FOUND"));
         comm.sendString(sock, foundPwd);
-        emit logMessage(QString("Worker: hasło znalezione: %1").arg(QString::fromStdString(foundPwd)));
+        emit logMessage(QString("Worker: password found: %1").arg(QString::fromStdString(foundPwd)));
     } else
     {
         comm.sendString(sock, std::string("NOTFOUND"));
-        emit logMessage("Worker: nie znaleziono hasła w przydzielonym zakresie");
+        emit logMessage("Worker: did not find password in given range");
     }
 
     shutdown(sock, SD_BOTH);
@@ -142,11 +145,11 @@ bool Worker::tryPassword(const std::string& zipPath, const std::string& password
 
 void Worker::setup()
 {
-    std::cerr<<addr.c_str()<<std::endl;std::cerr<<port.c_str()<<std::endl;
+    //std::cerr<<addr.c_str()<<std::endl;std::cerr<<port.c_str()<<std::endl;
     sock = comm.createClient(addr.c_str(), port.c_str());
     if (sock == INVALID_SOCKET)
     {
-        emit logMessage("connect in setup failed");
+        emit logMessage("Connect in setup failed");
         //window->appendLogs(QString("Connection with %1:%2 failed").arg(QString::fromStdString(addr), QString::fromStdString(port)));
         //exit(EXIT_FAILURE);
     }

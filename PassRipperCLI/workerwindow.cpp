@@ -35,10 +35,12 @@ void WorkerWindow::on_btnConnect_clicked()
 
     worker = new Worker(ip.toStdString(), port.toStdString(), this);
     worker->numThreads = numThreads;
+
     QThread* thread = new QThread(this);
     worker->moveToThread(thread);
     connect(thread, &QThread::started, worker, &Worker::run);
     connect(worker, &Worker::logMessage, this, &WorkerWindow::appendLogs);
+
     // Cleanup:
     connect(worker,    &Worker::finished,thread, &QThread::quit);
     connect(worker,    &Worker::finished, worker,    &QObject::deleteLater);

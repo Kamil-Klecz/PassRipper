@@ -74,9 +74,3 @@ void ManagerWindow::appendLog(const QString &message)
 {
     ui->textEditLogs->append(message);
 }
-
-void ManagerWindow::passwordFound(const QString &password)
-{
-    QMessageBox::information(this, "Password Found", "The password is: " + password);
-    QApplication::quit();
-}
