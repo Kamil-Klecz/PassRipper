@@ -19,6 +19,7 @@ public:
     ~WorkerWindow();
 
     void appendLogs(const QString &msg);
+    void setInputsEnabled(bool enabled);
 
 private slots:
     void on_btnConnect_clicked();

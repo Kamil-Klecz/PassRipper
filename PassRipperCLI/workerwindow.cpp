@@ -22,8 +22,6 @@ WorkerWindow::~WorkerWindow()
 void WorkerWindow::on_btnConnect_clicked()
 {
     QString ip = ui->lineEditIP->text().trimmed();
-    QString port = QString::number(ui->spinBoxPort->value());
-    int numThreads = ui->spinBoxThreads->value();
 
     if(!isValidIpAddress(ip))
     {
@@ -31,7 +29,12 @@ void WorkerWindow::on_btnConnect_clicked()
         return;
     }
 
-    appendLogs(QString("Attempting connection to %1:%2...").arg(ip, port));
+    setInputsEnabled(false);
+
+    QString port = QString::number(ui->spinBoxPort->value());
+    int numThreads = ui->spinBoxThreads->value();
+
+    appendLogs(QString("\nAttempting connection to %1:%2...").arg(ip, port));
 
     worker = new Worker(ip.toStdString(), port.toStdString(), this);
     worker->numThreads = numThreads;
@@ -61,4 +64,12 @@ bool WorkerWindow::isValidIpAddress(const QString &ip)
 void WorkerWindow::appendLogs(const QString &msg)
 {
     ui->textEditLogs->append(msg);
+}
+
+void WorkerWindow::setInputsEnabled(bool enabled)
+{
+    ui->btnConnect->setEnabled(enabled);
+    ui->spinBoxPort->setEnabled(enabled);
+    ui->spinBoxThreads->setEnabled(enabled);
+    ui->lineEditIP->setEnabled(enabled);
 }

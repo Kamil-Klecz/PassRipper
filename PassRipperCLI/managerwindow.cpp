@@ -35,12 +35,12 @@ void ManagerWindow::on_btnSend_clicked()
         return;
     }
 
+    setInputsEnabled(false);
+
     bool includeSpecialChars = ui->checkSpecialChars->isChecked();
     int maxLen = ui->spinBoxMaxLen->value();
 
-    setInputsEnabled(false);
-
-    appendLog(QString("Sending job: File=%1, MaxLength=%2, Specials=%3")
+    appendLog(QString("\nSending job: File=%1, MaxLength=%2, Specials=%3")
                   .arg(filePath)
                   .arg(maxLen)
                   .arg(includeSpecialChars ? "Yes" : "No"));
@@ -50,9 +50,11 @@ void ManagerWindow::on_btnSend_clicked()
     manager->maxLen = maxLen;
     manager->alphabet = ui->checkSpecialChars->isChecked() ? alphabet+specialChars : alphabet;
     manager->zipPath = ui->lineEditZipPath->text();
+
     QThread* thread = new QThread(this);
     manager->moveToThread(thread);
     connect(thread, &QThread::started, manager, &Manager::run);
+
     // Cleanup:
     connect(manager,    &Manager::finished,thread, &QThread::quit);
     connect(manager,    &Manager::finished, manager,    &QObject::deleteLater);

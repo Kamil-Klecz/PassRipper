@@ -30,7 +30,7 @@ void Manager::run()
                comm.sendUInt64(s, taskStart);
                comm.sendUInt64(s, taskEnd);
 
-               // Receive result
+               //Receive result
                std::string status;
                if (comm.recvString(s, status))
                {
@@ -42,7 +42,6 @@ void Manager::run()
                            {
                                std::lock_guard<std::mutex> lock(logMutex);
                                window->appendLog(QString("Worker %1 found password: %2").arg(i + 1).arg(QString::fromStdString(pwd)));
-                               window->setInputsEnabled(true);
                            }
                        }
                    }
@@ -56,6 +55,7 @@ void Manager::run()
                        std::lock_guard<std::mutex> lock(logMutex);
                        window->appendLog(QString("Worker %1 returned unknown status: %2").arg(i + 1).arg(QString::fromStdString(status)));
                    }
+                   window->setInputsEnabled(true);
                }
                else
                {
@@ -70,4 +70,6 @@ void Manager::run()
 
     for (auto& t : workerThreads)
         if (t.joinable()) t.join();
+
+    emit finished();
 }

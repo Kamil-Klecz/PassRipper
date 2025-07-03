@@ -9,18 +9,21 @@ void Worker::run()
     const std::string localZip = "worker_received.zip";
     if (!comm.recvFile(sock, localZip)) {
         emit logMessage("Failed to receive file path");
+        window->setInputsEnabled(true);
         return;
     }
 
     // 2. Odbierz alfabet
     if (!comm.recvString(sock, alphabet)) {
         emit logMessage("Failed to receive alphabet");
+        window->setInputsEnabled(true);
         return;
     }
 
     // 3. Odbierz maksymalną długość hasła
     if (!comm.recvUInt8(sock, maxLen)) {
         emit logMessage("Failed to receive password length");
+        window->setInputsEnabled(true);
         return;
     }
 
@@ -86,6 +89,8 @@ void Worker::run()
         comm.sendString(sock, std::string("NOTFOUND"));
         emit logMessage("Worker: did not find password in given range");
     }
+
+    window->setInputsEnabled(true);
 
     shutdown(sock, SD_BOTH);
     closesocket(sock);
@@ -154,5 +159,5 @@ void Worker::setup()
         //exit(EXIT_FAILURE);
     }
     std::cout<<"Setup completed"<<std::endl;
-    emit logMessage("Setup completed");
+    //emit logMessage("Setup completed");
 }

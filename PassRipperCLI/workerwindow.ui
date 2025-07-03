@@ -79,7 +79,7 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="placeholderText">
+           <property name="text">
             <string>127.0.0.1</string>
            </property>
           </widget>
@@ -99,7 +99,7 @@
             <number>1000000000</number>
            </property>
            <property name="value">
-            <number>1000</number>
+            <number>10</number>
            </property>
           </widget>
          </item>
