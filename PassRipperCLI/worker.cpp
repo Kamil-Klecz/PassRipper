@@ -27,8 +27,11 @@ void Worker::run()
     comm.recvUInt64(sock, range.start);
     comm.recvUInt64(sock, range.end);
 
-    std::cout << "Worker: otrzymano zakres [" << range.start << "," << range.end << "] alfabet(len="
-              << alphabet.size() << ") maxLen=" << int(maxLen) << std::endl;
+    emit logMessage(QString("Worker: otrzymano zakres [%1, %2] alfabet(len=%3) maxLen=%4")
+                        .arg(range.start)
+                        .arg(range.end)
+                        .arg(alphabet.size())
+                        .arg(int(maxLen)));
 
     // Wielowątkowe łamanie haseł
     std::atomic<bool> found(false);
@@ -74,12 +77,11 @@ void Worker::run()
     {
         comm.sendString(sock, std::string("FOUND"));
         comm.sendString(sock, foundPwd);
-        std::cout << "Worker: hasło znalezione: " << foundPwd << std::endl;
-        emit logMessage("hasło znalezione");
+        emit logMessage(QString("Worker: hasło znalezione: %1").arg(QString::fromStdString(foundPwd)));
     } else
     {
         comm.sendString(sock, std::string("NOTFOUND"));
-        std::cout << "Worker: nie znaleziono hasła w przydzielonym zakresie" << std::endl;
+        emit logMessage("Worker: nie znaleziono hasła w przydzielonym zakresie");
     }
 
     shutdown(sock, SD_BOTH);
@@ -144,7 +146,7 @@ void Worker::setup()
     sock = comm.createClient(addr.c_str(), port.c_str());
     if (sock == INVALID_SOCKET)
     {
-        std::cerr<<"connect in setup faield"<<std::endl;
+        emit logMessage("connect in setup failed");
         //window->appendLogs(QString("Connection with %1:%2 failed").arg(QString::fromStdString(addr), QString::fromStdString(port)));
         //exit(EXIT_FAILURE);
     }
