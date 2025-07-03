@@ -4,10 +4,12 @@ class ManagerWindow;
 
 #include "komunikacja.h"
 #include <QString>
+#include <QObject>
 #pragma comment(lib, "Ws2_32.lib")
 
-class Manager
+class Manager: public QObject
 {
+    Q_OBJECT
 public:
     ManagerWindow* window;
     QString zipPath;
@@ -25,7 +27,12 @@ public:
         listenSock = ls;
     }
 
+
+public slots:
     void run();
+signals:
+    void finished();
+
 
 private:
     Komunikacja comm;

@@ -3,6 +3,7 @@
 
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QThread>
 
 ManagerWindow::ManagerWindow(QWidget *parent)
     : QWidget(parent)
@@ -45,10 +46,18 @@ void ManagerWindow::on_btnSend_clicked()
                   .arg(includeSpecialChars ? "Yes" : "No"));
 
     manager = new Manager(ui->spinBoxPort->text().toStdString().data(), ui->spinBoxWorkerCount->value(), this);
+
     manager->maxLen = maxLen;
     manager->alphabet = ui->checkSpecialChars->isChecked() ? alphabet+specialChars : alphabet;
     manager->zipPath = ui->lineEditZipPath->text();
-    manager->run();
+    QThread* thread = new QThread(this);
+    manager->moveToThread(thread);
+    connect(thread, &QThread::started, manager, &Manager::run);
+    // Cleanup:
+    connect(manager,    &Manager::finished,thread, &QThread::quit);
+    connect(manager,    &Manager::finished, manager,    &QObject::deleteLater);
+    connect(thread,    &QThread::finished,thread,    &QObject::deleteLater);
+    thread->start();
 }
 
 void ManagerWindow::setInputsEnabled(bool enabled)
