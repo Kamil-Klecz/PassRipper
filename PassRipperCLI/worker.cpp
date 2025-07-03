@@ -3,22 +3,23 @@
 
 void Worker::run()
 {
+    setup();
     // 1. Odbierz plik ZIP
     const std::string localZip = "worker_received.zip";
     if (!comm.recvFile(sock, localZip)) {
-        window->appendLogs("Failed to receive filePath");
+        emit logMessage("Failed to receive file path");
         return;
     }
 
     // 2. Odbierz alfabet
     if (!comm.recvString(sock, alphabet)) {
-        window->appendLogs("Failed to receive alphabet");
+        emit logMessage("Failed to receive alphabet");
         return;
     }
 
     // 3. Odbierz maksymalną długość hasła
     if (!comm.recvUInt8(sock, maxLen)) {
-        window->appendLogs("Failed to receive maxLen");
+        emit logMessage("Failed to receive password length");
         return;
     }
 
@@ -83,6 +84,7 @@ void Worker::run()
 
     shutdown(sock, SD_BOTH);
     closesocket(sock);
+    emit finished();
 }
 
 std::string Worker::indexToPassword(uint64_t index, const std::string& alphabet, uint8_t maxLen)
@@ -143,7 +145,7 @@ void Worker::setup()
     if (sock == INVALID_SOCKET)
     {
         std::cerr<<"connect in setup faield"<<std::endl;
-        window->appendLogs(QString("Connection with %1:%2 failed").arg(QString::fromStdString(addr), QString::fromStdString(port)));
+        //window->appendLogs(QString("Connection with %1:%2 failed").arg(QString::fromStdString(addr), QString::fromStdString(port)));
         //exit(EXIT_FAILURE);
     }
     std::cout<<"Setup completed"<<std::endl;

@@ -20,11 +20,12 @@ public:
         : window(win), addr(address), port(port)
     {}
 
-    // Uruchamia odbiór danych i łamanie hasła
+public slots:
     void run();
     void setup();
 signals:
     void logMessage(QString msg);  // signal to send log messages
+    void finished();
 private:
     WorkerWindow* window;
     Komunikacja comm;

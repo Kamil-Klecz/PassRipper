@@ -34,10 +34,17 @@ void WorkerWindow::on_btnConnect_clicked()
     appendLogs(QString("Attempting connection to %1:%2...").arg(ip, port));
 
     worker = new Worker(ip.toStdString(), port.toStdString(), this);
-    connect(worker, &Worker::logMessage, this, &WorkerWindow::appendLogs);
-    worker->setup();
     worker->numThreads = numThreads;
-    worker->run();
+    QThread* thread = new QThread(this);
+    worker->moveToThread(thread);
+    connect(thread, &QThread::started, worker, &Worker::run);
+    connect(worker, &Worker::logMessage, this, &WorkerWindow::appendLogs);
+    // Cleanup:
+    connect(worker,    &Worker::finished,thread, &QThread::quit);
+    connect(worker,    &Worker::finished, worker,    &QObject::deleteLater);
+    connect(thread,    &QThread::finished,thread,    &QObject::deleteLater);
+
+    thread->start();
 }
 
 bool WorkerWindow::isValidIpAddress(const QString &ip)
