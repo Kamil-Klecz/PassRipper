@@ -74,6 +74,7 @@ void Worker::run()
         comm.sendString(sock, std::string("FOUND"));
         comm.sendString(sock, foundPwd);
         std::cout << "Worker: hasło znalezione: " << foundPwd << std::endl;
+        emit logMessage("hasło znalezione");
     } else
     {
         comm.sendString(sock, std::string("NOTFOUND"));
@@ -145,4 +146,6 @@ void Worker::setup()
         window->appendLogs(QString("Connection with %1:%2 failed").arg(QString::fromStdString(addr), QString::fromStdString(port)));
         //exit(EXIT_FAILURE);
     }
+    std::cout<<"Setup completed"<<std::endl;
+    emit logMessage("Setup completed");
 }

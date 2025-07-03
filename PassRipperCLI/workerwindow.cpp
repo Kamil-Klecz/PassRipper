@@ -4,12 +4,14 @@
 #include <QRegularExpression>
 #include <QMessageBox>
 #include <QHostAddress>
+#include <QThread>
 
 WorkerWindow::WorkerWindow(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::WorkerWindow)
 {
     ui->setupUi(this);
+
 }
 
 WorkerWindow::~WorkerWindow()
@@ -32,6 +34,7 @@ void WorkerWindow::on_btnConnect_clicked()
     appendLogs(QString("Attempting connection to %1:%2...").arg(ip, port));
 
     worker = new Worker(ip.toStdString(), port.toStdString(), this);
+    connect(worker, &Worker::logMessage, this, &WorkerWindow::appendLogs);
     worker->setup();
     worker->numThreads = numThreads;
     worker->run();

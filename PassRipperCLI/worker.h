@@ -8,22 +8,23 @@ class WorkerWindow;
 #include <vector>
 #include <mutex>
 #include <atomic>
+#include <QObject>
 
-class Worker
+class Worker: public QObject
 {
+    Q_OBJECT
 public:
     unsigned numThreads;
 
     Worker(const std::string& address, const std::string& port, WorkerWindow* win)
-        : addr(address), port(port), window(win)
+        : window(win), addr(address), port(port)
     {}
 
     // Uruchamia odbiór danych i łamanie hasła
     void run();
-
-    //Setup klienta
     void setup();
-
+signals:
+    void logMessage(QString msg);  // signal to send log messages
 private:
     WorkerWindow* window;
     Komunikacja comm;
