@@ -99,14 +99,27 @@ void Worker::run()
 
 std::string Worker::indexToPassword(uint64_t index, const std::string& alphabet, uint8_t maxLen)
 {
-    std::string pwd;
-    uint64_t base = alphabet.size();
-    while ((index > 0) && (pwd.size() < maxLen))
-    {
-        pwd.push_back(alphabet[index % base]);
-        index /= base;
+    const uint64_t base = alphabet.size();
+    // 1. Znajdź długość L, taką że index < sum_{l=1..L} base^l
+    uint64_t prevSum = 0;
+    uint64_t blockSize = base;  // base^1
+    uint8_t L = 1;
+    while (L < maxLen && index >= prevSum + blockSize) {
+        prevSum += blockSize;
+        blockSize *= base;      // baza^L rośnie
+        ++L;
     }
-    std::reverse(pwd.begin(), pwd.end());
+    // teraz L to długość hasła, a prevSum = suma(base^1 + ... + base^{L-1})
+
+    // 2. Oblicz indeks wewnątrz bloków długości L:
+    uint64_t idxInBlock = index - prevSum;
+
+    // 3. Zamień idxInBlock na dokładnie L-cyfrowy zapis w bazie "base"
+    std::string pwd(L, alphabet[0]);
+    for (int pos = L - 1; pos >= 0; --pos) {
+        pwd[pos] = alphabet[idxInBlock % base];
+        idxInBlock /= base;
+    }
     return pwd;
 }
 

@@ -1,7 +1,5 @@
 QT       += core gui network
 QT += widgets
-CONFIG  += c++17 cmdline
-CONFIG   += console
 SOURCES += \
     komunikacja.cpp \
     main.cpp \
