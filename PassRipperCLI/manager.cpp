@@ -3,7 +3,13 @@
 
 void Manager::run()
 {
-    uint64_t totalTasks = 1000000;
+    uint64_t totalTasks = 0;
+    int base = alphabet.size();
+
+    for (int i = 1; i <= maxLen; ++i) {
+        totalTasks += pow(base, i);
+    }
+
     uint64_t chunk = totalTasks / count;
     uint64_t start = 0;
 
