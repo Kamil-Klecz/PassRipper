@@ -89,7 +89,8 @@ bool Komunikacja::sendFile(SOCKET sock, const std::string& path)
         std::cerr << "sendFile: CreateFileA failed, err=" << GetLastError() << std::endl;
         return false;
     }
-    LARGE_INTEGER size; GetFileSizeEx(h, &size);
+    LARGE_INTEGER size;
+    GetFileSizeEx(h, &size);
     uint64_t netSize = htonll(static_cast<uint64_t>(size.QuadPart));
     if (::send(sock, reinterpret_cast<const char*>(&netSize), sizeof(netSize), 0) != sizeof(netSize)) {
         std::cerr << "sendFile: send size failed, err=" << WSAGetLastError() << std::endl;
@@ -156,7 +157,8 @@ bool Komunikacja::sendString(SOCKET sock, const std::string& s)
 
 bool Komunikacja::recvString(SOCKET sock, std::string& s)
 {
-    uint32_t netLen; if(::recv(sock,(char*)&netLen,sizeof(netLen),0)!=sizeof(netLen))return false;
+    uint32_t netLen;
+    if(::recv(sock,(char*)&netLen,sizeof(netLen),0)!=sizeof(netLen))return false;
     uint32_t len=ntohl(netLen);
     s.resize(len);
     return ::recv(sock,&s[0],len,0)==(int)len;

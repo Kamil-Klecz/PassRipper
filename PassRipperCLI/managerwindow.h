@@ -27,7 +27,7 @@ private slots:
 private:
     Ui::ManagerWindow *ui;
     QString filePath;
-    QString alphabet = "abcdefghijklmnopqrstuvwxyz";
+    QString alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOUPRSTUWXYZ1234567890";
     QString specialChars = "!@#$%^&*()_-+=,<.>/?;:'{|[}]";
 
     Manager* manager;

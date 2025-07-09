@@ -27,16 +27,16 @@ public:
     // Tworzy połączenie klienta do address:port
     SOCKET createClient(const char* address, const char* port);
 
-    // Wysyła plik (hardkodowana ścieżka u managera), najpierw rozmiar, potem dane
+    // Wysyła plik, najpierw rozmiar, potem dane
     bool sendFile(SOCKET sock, const std::string& path);
 
     // Odbiera plik, zapisuje pod path (hardkodowana ścieżka u workera)
     bool recvFile(SOCKET sock, const std::string& path);
 
-    //Wysyłanie stringów itp
+    //Wysyłanie stringów
     bool sendString(SOCKET sock, const std::string& s);
 
-    //Odbieranie stringów itp
+    //Odbieranie stringów
     bool recvString(SOCKET sock, std::string& s);
 
     bool sendUInt8(SOCKET sock, uint8_t v) { return ::send(sock,(char*)&v,1,0)==1; }
@@ -45,7 +45,6 @@ public:
     bool sendUInt64(SOCKET sock, uint64_t v) {
         uint64_t n=htonll(v); return ::send(sock,(char*)&n,sizeof(n),0)==sizeof(n);
     }
-
     bool recvUInt64(SOCKET sock, uint64_t&v){
         uint64_t n; if(::recv(sock,(char*)&n,sizeof(n),0)!=sizeof(n))return false; v=ntohll(n); return true;
     }
